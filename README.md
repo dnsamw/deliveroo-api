@@ -1,6 +1,6 @@
-# Recoveroo UK API
+# Deliveroo UK API
 
-Backend project for Recoveroo-UK RESTful APIs using Node.js,Typescript, Express, and Sequelize.
+Backend project for Deliveroo-UK RESTful APIs using Node.js,Typescript, Express, and Sequelize.
 
 
 - Node 
@@ -10,7 +10,7 @@ Backend project for Recoveroo-UK RESTful APIs using Node.js,Typescript, Express,
 
 ## Table of Contents
 
-- [Recoveroo-UK RESTful APIs](#recoveroo-uk-typescript-node-sequelize)
+- [Deliveroo-UK RESTful APIs](#deliveroo-uk-typescript-node-sequelize)
   - [Table of Contents](#table-of-contents)
   - [Quick start](#quick-start)
   - [Manual Installation](#manual-installation)
