@@ -1,4 +1,3 @@
-import { encryptSync } from "../util/encrypt";
 import { Op } from "sequelize";
 import Menu from "../models/Menu";
 

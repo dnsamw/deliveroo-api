@@ -1,0 +1,10 @@
+Router index
+    - appRoutes
+        |_entityRoute (get,post,delete,patch) 
+            - swagger docs
+          |__entityController
+                - cet,create,update,delete methods
+                |__entityService
+                    - talks to models similar function as entityController
+                    |__eentityModel
+                        - DB model

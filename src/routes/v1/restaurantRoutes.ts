@@ -1,28 +1,28 @@
 import { Router } from "express";
-import { getMenuData, updateMenu, createNewMenu } from "../../controllers/menu";
+import { getRestaurantData, updateRestaurant, createNewRestaurant } from "../../controllers/restaurant";
 
 const menuRouter = Router();
 
-menuRouter.get("/", getMenuData);
-menuRouter.post("/", createNewMenu);
-menuRouter.patch("/", updateMenu);
+menuRouter.get("/", getRestaurantData);
+menuRouter.post("/", createNewRestaurant);
+menuRouter.patch("/", updateRestaurant);
 
 export default menuRouter;
 
 /**
  * @swagger
  * tags:
- *   name: Menu
- *   description: Menu management
+ *   name: Restaurant
+ *   description: Restaurant management
  */
 
 /**
  * @swagger
- * /v1/menu:
+ * /v1/restaurant:
  *   get:
- *     summary: Get menu information
- *     description: Any user can fetch all menu information.
- *     tags: [Menu]
+ *     summary: Get restaurant information
+ *     description: Any user can fetch all restaurant information.
+ *     tags: [Restaurant]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -39,9 +39,9 @@ export default menuRouter;
  *                   type: boolean
  *
  *   post:
- *     summary: Create a new menu
- *     description: Create a new menu. Only restaurant admin users can create menus.
- *     tags: [Menu]
+ *     summary: Create a new restaurant
+ *     description: Create a new restaurant. Only master admin users can create restaurant.
+ *     tags: [Restaurant]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -52,21 +52,47 @@ export default menuRouter;
  *             type: object
  *             required:
  *               - name
- *               - restaurant_id
  *             properties:
  *               name:
  *                 type: string
- *               restaurant_id:
- *                 type: integer
- *               min_price:
+ *               thumbnail:
+ *                 type: string
+ *               about:
+ *                 type: string
+ *               allergens_info:
+ *                 type: string
+ *               telephone:
+ *                 type: string
+ *               hygiene_description:
+ *                 type: string
+ *               hygiene_rating:
  *                 type: number
- *               description:
+ *               hygiene_rating_image:
+ *                 type: string
+ *               hygiene_rating_url:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               latitude:
+ *                 type: string
+ *               longitude:
+ *                 type: string
+ *               notes:
  *                 type: string
  *             example:
- *               name: Lunch Menu
- *               restaurant_id: 1
- *               min_price: 9.99
- *               description: Our delicious lunch offerings
+ *               name: London Restaurant
+ *               thumbnail: https://rs-menus-api.roocdn.com/images/57800532-e16e-4743-83fb-06c3c2230d76/image.jpeg
+ *               about: Our London restaurant
+ *               allergens_info: No allergens info
+ *               telephone: 123456789
+ *               hygiene_description: Our hygiene description
+ *               hygiene_rating: 5
+ *               hygiene_rating_image: https://ow.roocdn.com/assets/images/fsa/fhrs_5@3x.png
+ *               hygiene_rating_url: https://www.foodiesfeed.com/
+ *               address: London
+ *               latitude: 0
+ *               longitude: 0
+ *               notes: Our notes
  *     responses:
  *       "201":
  *         description: Created
@@ -76,7 +102,7 @@ export default menuRouter;
  *               type: object
  *               properties:
  *                 data:
- *                   $ref: '#/components/schemas/Menu'
+ *                   $ref: '#/components/schemas/Restaurant'
  *                 msg:
  *                   type: string
  *                 error:
@@ -89,9 +115,9 @@ export default menuRouter;
  *         description: Forbidden
  *
  *   patch:
- *     summary: Update menu
- *     description: Only restaurant admin users can update their own menu information.
- *     tags: [Menu]
+ *     summary: Update restaurant
+ *     description: Only restaurant admin users, master admins and restaurant manager members can update their own restaurant information.
+ *     tags: [Restaurant]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -108,7 +134,7 @@ export default menuRouter;
  *               description:
  *                 type: string
  *             example:
- *               name: Updated Lunch Menu
+ *               name: Updated London Restaurant
  *               min_price: 10.99
  *               description: Our updated delicious lunch offerings
  *     responses:
@@ -132,7 +158,7 @@ export default menuRouter;
  *       "403":
  *         description: Forbidden
  *       "404":
- *         description: Menu not found
+ *         description: Restaurant not found
  *
  */
 
@@ -140,21 +166,37 @@ export default menuRouter;
  * @swagger
  * components:
  *   schemas:
- *     Menu:
+ *     Restaurant:
  *       type: object
  *       properties:
  *         id:
  *           type: integer
- *         restaurant_id:
- *           type: integer
  *         name:
+ *           type: integer
+ *         thumbnail:
  *           type: string
- *         min_price:
+ *         about:
  *           type: number
- *         description:
+ *         allergens_info:
  *           type: string
- *         overall_rating:
+ *         telephone:
+ *           type: string
+ *         hygiene_description:
+ *           type: string
+ *         hygiene_rating:
  *           type: number
+ *         hygiene_rating_image:
+ *           type: string
+ *         hygiene_rating_url:
+ *           type: string
+ *         address:
+ *           type: string
+ *         latitude:
+ *           type: string
+ *         longitude:
+ *           type: string
+ *         notes:
+ *           type: string
  *         created_at:
  *           type: string
  *           format: date-time
