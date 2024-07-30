@@ -26,7 +26,7 @@ CREATE TABLE Menu (
 );
 
 CREATE TABLE Menu_Sections (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    section_id INT PRIMARY KEY AUTO_INCREMENT,
     menu_id INT,
     name VARCHAR(255) NOT NULL,
     FOREIGN KEY (menu_id) REFERENCES Menus(id)

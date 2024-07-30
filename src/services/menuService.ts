@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import Menu from "../models/Menu";
 import Restaurant from "../models/Restaurant";
+import MenuSection from "../models/MenuSection";
 
 export const createMenu = async (payload: any) => {
   const menu = await Menu.create(payload);
@@ -9,10 +10,16 @@ export const createMenu = async (payload: any) => {
 
 export const getMenuById = async (id: number) => {
   const menu = await Menu.findByPk(id, {
-    include: [{
+    include: [
+      {
       model: Restaurant,
       as: 'restaurant_data',
-    }]
+      },
+      {
+      model: MenuSection,
+      as: 'sections_list',
+      },
+  ]
   });
   if (!menu) {
     throw new Error("menu not found");

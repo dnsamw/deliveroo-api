@@ -18,7 +18,7 @@ export default menuRouter;
 
 /**
  * @swagger
- * /v1/restaurant:
+ * /v1/restaurants:
  *   get:
  *     summary: Get restaurant information
  *     description: Any user can fetch all restaurant information.

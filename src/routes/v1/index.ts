@@ -5,6 +5,7 @@ import docsRouter from "./docsRoute";
 import userRouter from "./userRoutes";
 import restaurantRouter from "./restaurantRoutes";
 import menuRouter from "./menuRoutes";
+import menuSectionRouter from "./menuSectionRoutes";
 
 const appRouter = Router();
 
@@ -19,12 +20,16 @@ const appRoutes = [
     router: userRouter,
   },
   {
-    path: "/restaurant",
+    path: "/restaurants",
     router: restaurantRouter,
   },
   {
-    path: "/menu",
+    path: "/menus",
     router: menuRouter,
+  },
+  {
+    path: "/menu-sections",
+    router: menuSectionRouter,
   },
   {
     path: "/docs",

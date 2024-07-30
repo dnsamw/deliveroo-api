@@ -1,30 +1,30 @@
 import { Router } from "express";
-import { getMenuData, updateMenu, createNewMenu, getOneMenuById } from "../../controllers/menu";
+import { getMenuSectionData, updateMenuSection, createNewMenuSection, getOneMenuSectionById } from "../../controllers/menuSection";
 
 
 const menuRouter = Router();
 
-menuRouter.get("/", getMenuData);
-menuRouter.get("/:id", getOneMenuById);
-menuRouter.post("/", createNewMenu);
-menuRouter.patch("/", updateMenu);
+menuRouter.get("/", getMenuSectionData);
+menuRouter.get("/:id", getOneMenuSectionById);
+menuRouter.post("/", createNewMenuSection);
+menuRouter.patch("/", updateMenuSection);
 
 export default menuRouter;
 
 /**
  * @swagger
  * tags:
- *   name: Menu
- *   description: Menu management
+ *   name: Menu Section (Menu Category)
+ *   description: Menu section management
  */
 
 /**
  * @swagger
- * /v1/menus:
+ * /v1/menu-sections:
  *   get:
- *     summary: Get menu information
+ *     summary: Get menu section information
  *     description: Any user can fetch all menu information.
- *     tags: [Menu]
+ *     tags: [MenuSection]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -41,9 +41,9 @@ export default menuRouter;
  *                   type: boolean
  *
  *   post:
- *     summary: Create a new menu
- *     description: Create a new menu. Only restaurant admin users can create menus.
- *     tags: [Menu]
+ *     summary: Create a new menu section
+ *     description: Create a new menu section. Only restaurant admin users can create menu sections.
+ *     tags: [MenuSection]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -58,17 +58,12 @@ export default menuRouter;
  *             properties:
  *               name:
  *                 type: string
- *               restaurant_id:
+ *               menu_id:
  *                 type: integer
- *               min_price:
- *                 type: number
- *               description:
- *                 type: string
  *             example:
- *               name: Lunch Menu
- *               restaurant_id: 1
- *               min_price: 9.99
- *               description: Our delicious lunch offerings
+ *               name: House Specials
+ *               menu_id: 1
+
  *     responses:
  *       "201":
  *         description: Created
@@ -78,7 +73,7 @@ export default menuRouter;
  *               type: object
  *               properties:
  *                 data:
- *                   $ref: '#/components/schemas/Menu'
+ *                   $ref: '#/components/schemas/MenuSection'
  *                 msg:
  *                   type: string
  *                 error:
@@ -91,9 +86,9 @@ export default menuRouter;
  *         description: Forbidden
  *
  *   patch:
- *     summary: Update menu
- *     description: Only restaurant admin users can update their own menu information.
- *     tags: [Menu]
+ *     summary: Update menu section
+ *     description: Only restaurant admin users can update their own menu section information.
+ *     tags: [MenuSection]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -104,10 +99,6 @@ export default menuRouter;
  *             type: object
  *             properties:
  *               name:
- *                 type: string
- *               min_price:
- *                 type: number
- *               description:
  *                 type: string
  *             example:
  *               name: Updated Lunch Menu
@@ -142,21 +133,15 @@ export default menuRouter;
  * @swagger
  * components:
  *   schemas:
- *     Menu:
+ *     MenuSection:
  *       type: object
  *       properties:
  *         id:
  *           type: integer
- *         restaurant_id:
+ *         menu_id:
  *           type: integer
  *         name:
  *           type: string
- *         min_price:
- *           type: number
- *         description:
- *           type: string
- *         overall_rating:
- *           type: number
  *         created_at:
  *           type: string
  *           format: date-time
