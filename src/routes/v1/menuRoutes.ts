@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { getMenuData, updateMenu, createNewMenu } from "../../controllers/menu";
+import { getMenuData, updateMenu, createNewMenu, getOneMenuById } from "../../controllers/menu";
+
 
 const menuRouter = Router();
 
 menuRouter.get("/", getMenuData);
+menuRouter.get("/:id", getOneMenuById);
 menuRouter.post("/", createNewMenu);
 menuRouter.patch("/", updateMenu);
 

@@ -1,4 +1,9 @@
-import { findOneMenu, updateMenuById, createMenu } from "../services/menuService";
+import {
+  findOneMenu,
+  updateMenuById,
+  createMenu,
+  getMenuById,
+} from "../services/menuService";
 import { NextFunction, Response } from "express";
 import { customRequest } from "../types/customDefinition";
 import { ApiError } from "../util/ApiError";
@@ -46,29 +51,44 @@ export const getMenuData = async (
   }
 };
 
+export const getOneMenuById = async (
+  req: customRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const menuRes = await getMenuById(parseInt(req.params.id, 10));
+    return res.status(200).json({
+      data: menuRes,
+      error: false,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const createNewMenu = async (
-    req: customRequest,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const menuData = req.body;
-  
-      const newMenu = await createMenu(menuData);
-  
-      return res.status(201).json({
-        data: newMenu,
-        msg: "Menu created successfully",
-        error: false,
-      });
-    } catch (err) {
-      // If it's an expected error (like validation error), create an ApiError
-      if (err instanceof Error) {
-        next(new ApiError(400, err.message));
-      } else {
-        // For unexpected errors, pass a generic error message
-        next(new ApiError(500, "An error occurred while creating the menu"));
-      }
+  req: customRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const menuData = req.body;
+
+    const newMenu = await createMenu(menuData);
+
+    return res.status(201).json({
+      data: newMenu,
+      msg: "Menu created successfully",
+      error: false,
+    });
+  } catch (err) {
+    // If it's an expected error (like validation error), create an ApiError
+    if (err instanceof Error) {
+      next(new ApiError(400, err.message));
+    } else {
+      // For unexpected errors, pass a generic error message
+      next(new ApiError(500, "An error occurred while creating the menu"));
     }
-  };
+  }
+};

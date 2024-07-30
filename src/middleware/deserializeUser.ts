@@ -13,7 +13,7 @@ const deserializeUser = async (
   if (bearerToken && bearerToken.startsWith("Bearer ")) {
     token = bearerToken.substring(7);
   }
-  if (!token) return next();
+  if (!token) return next(); // no token, no user
 
   const { decoded, expired, valid, msg: errorMsg } = verify(token);
 
