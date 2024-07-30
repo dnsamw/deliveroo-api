@@ -1,3 +1,4 @@
+//src/services/restaurantService.ts
 import { Op } from "sequelize";
 import Restaurant from "../models/Restaurant";
 
@@ -84,3 +85,28 @@ export const deleteRestaurantById = (restaurantId: number) => {
     where: { id: restaurantId },
   });
 };
+
+
+export const getRestaurantsPaginated = async (page: number = 1, pageSize: number = 10) => {
+    const offset = (page - 1) * pageSize;
+    
+    const { count, rows } = await Restaurant.findAndCountAll({
+      limit: pageSize,
+      offset: offset,
+      order: [['id', 'ASC']], // You can change the ordering as needed
+    });
+  
+    const totalPages = Math.ceil(count / pageSize);
+  
+    return {
+      restaurants: rows,
+      pagination: {
+        currentPage: page,
+        pageSize: pageSize,
+        totalItems: count,
+        totalPages: totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    };
+  };

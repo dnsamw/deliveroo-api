@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export interface customRequest extends Request {
   user: any;
   menu: any;
+  restaurant: any;
 }
 
 export interface customError extends Error {

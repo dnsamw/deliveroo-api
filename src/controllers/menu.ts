@@ -38,7 +38,7 @@ export const getMenuData = async (
 ) => {
   try {
     return res.status(200).json({
-      data: req.user,
+      data: req.menu,
       error: false,
     });
   } catch (err) {

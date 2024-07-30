@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getRestaurantData, updateRestaurant, createNewRestaurant } from "../../controllers/restaurant";
+import { getRestaurantData, updateRestaurant, createNewRestaurant, getPaginatedRestaurants } from "../../controllers/restaurant";
 
 const menuRouter = Router();
 
-menuRouter.get("/", getRestaurantData);
+menuRouter.get("/", getPaginatedRestaurants);
 menuRouter.post("/", createNewRestaurant);
 menuRouter.patch("/", updateRestaurant);
 

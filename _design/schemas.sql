@@ -34,7 +34,7 @@ CREATE TABLE Menu_Sections (
 
 CREATE TABLE Products (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    section_id INT,
+    menu_section_id INT,
     name VARCHAR(255) NOT NULL,
     thumbnail VARCHAR(255),
     calories VARCHAR(50),

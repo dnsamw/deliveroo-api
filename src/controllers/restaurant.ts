@@ -1,7 +1,10 @@
-import { findOneRestaurant, updateRestaurantById, createRestaurant } from "../services/restaurantService";
+//src/controllers/restaurant.ts
+
+import { findOneRestaurant, updateRestaurantById, createRestaurant, getRestaurantsPaginated } from "../services/restaurantService";
 import { NextFunction, Response } from "express";
 import { customRequest } from "../types/customDefinition";
 import { ApiError } from "../util/ApiError";
+import { log } from "console";
 
 export const updateRestaurant = async (
   req: customRequest,
@@ -36,9 +39,10 @@ export const getRestaurantData = async (
   res: Response,
   next: NextFunction
 ) => {
+  log("getRestaurantData - ",req)
   try {
     return res.status(200).json({
-      data: req.user,
+      data: req.restaurant,
       error: false,
     });
   } catch (err) {
@@ -69,6 +73,35 @@ export const createNewRestaurant = async (
       } else {
         // For unexpected errors, pass a generic error message
         next(new ApiError(500, "An error occurred while creating the restaurant"));
+      }
+    }
+  };
+
+  export const getPaginatedRestaurants = async (
+    req: customRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const pageSize = parseInt(req.query.pageSize as string) || 10;
+  
+      if (page < 1 || pageSize < 1) {
+        throw new ApiError(400, "Invalid page or pageSize parameters");
+      }
+  
+      const { restaurants, pagination } = await getRestaurantsPaginated(page, pageSize);
+  
+      return res.status(200).json({
+        data: restaurants,
+        pagination,
+        error: false,
+      });
+    } catch (err) {
+      if (err instanceof ApiError) {
+        next(err);
+      } else {
+        next(new ApiError(500, "An error occurred while fetching restaurants"));
       }
     }
   };
