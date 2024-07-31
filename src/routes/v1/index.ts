@@ -6,6 +6,7 @@ import userRouter from "./userRoutes";
 import restaurantRouter from "./restaurantRoutes";
 import menuRouter from "./menuRoutes";
 import menuSectionRouter from "./menuSectionRoutes";
+import productRouter from "./productRoute";
 
 const appRouter = Router();
 
@@ -30,6 +31,10 @@ const appRoutes = [
   {
     path: "/menu-sections",
     router: menuSectionRouter,
+  },
+  {
+    path: "/products",
+    router: productRouter,
   },
   {
     path: "/docs",

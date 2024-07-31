@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 import Menu from "../models/Menu";
 import Restaurant from "../models/Restaurant";
 import MenuSection from "../models/MenuSection";
+import Product from "../models/Product";
 
 export const createMenu = async (payload: any) => {
   const menu = await Menu.create(payload);
@@ -12,14 +13,20 @@ export const getMenuById = async (id: number) => {
   const menu = await Menu.findByPk(id, {
     include: [
       {
-      model: Restaurant,
-      as: 'restaurant_data',
+        model: Restaurant,
+        as: "restaurant_data",
       },
       {
-      model: MenuSection,
-      as: 'sections_list',
+        model: MenuSection,
+        as: "sections_list",
+        include: [
+          {
+            model: Product,
+            as: "products_list",
+          },
+        ],
       },
-  ]
+    ],
   });
   if (!menu) {
     throw new Error("menu not found");
@@ -49,7 +56,6 @@ export const menuExists = async (
   const menus = await Menu.findAll({ where: where });
   return menus.length > 0;
 };
-
 
 export const findOneMenu = async (options: any) => {
   if (!options.id) {

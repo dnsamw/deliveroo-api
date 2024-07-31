@@ -1,30 +1,30 @@
 import { Router } from "express";
-import { getMenuSectionData, updateMenuSection, createNewMenuSection, getOneMenuSectionById } from "../../controllers/menuSection";
+import { getProductData, updateProduct, createNewProduct, getOneProductById } from "../../controllers/product";
 
 
-const menuSectionRouter = Router();
+const productRouter = Router();
 
-menuSectionRouter.get("/", getMenuSectionData);
-menuSectionRouter.get("/:id", getOneMenuSectionById);
-menuSectionRouter.post("/", createNewMenuSection);
-menuSectionRouter.patch("/", updateMenuSection);
+productRouter.get("/", getProductData);
+productRouter.get("/:id", getOneProductById);
+productRouter.post("/", createNewProduct);
+productRouter.patch("/", updateProduct);
 
-export default menuSectionRouter;
+export default productRouter;
 
 /**
  * @swagger
  * tags:
- *   name: MenuSection
- *   description: Menu section management
+ *   name: Product
+ *   description: Product management
  */
 
 /**
  * @swagger
- * /v1/menu-sections:
+ * /v1/products:
  *   get:
- *     summary: Get menu section information
- *     description: Any user can fetch all menu information.
- *     tags: [MenuSection]
+ *     summary: Get product information
+ *     description: Any user can fetch all product information.
+ *     tags: [Product]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -41,9 +41,9 @@ export default menuSectionRouter;
  *                   type: boolean
  *
  *   post:
- *     summary: Create a new menu section
- *     description: Create a new menu section. Only restaurant admin users can create menu sections.
- *     tags: [MenuSection]
+ *     summary: Create a new product
+ *     description: Create a new product. Only restaurant admin users can create products.
+ *     tags: [Product]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -54,15 +54,20 @@ export default menuSectionRouter;
  *             type: object
  *             required:
  *               - name
- *               - restaurant_id
+ *               - menu_section_id
  *             properties:
  *               name:
  *                 type: string
- *               menu_id:
+ *               menu_section_id:
  *                 type: integer
  *             example:
- *               name: House Specials
- *               menu_id: 1
+ *               name: halloumi & roasted veg salad platter
+ *               menu_section_id: 2
+ *               thumbnail: "https://rs-menus-api.roocdn.com/images/e6afbac5-74e2-4d40-a56f-87245ea5bbdb/image.jpeg"
+ *               calories: 300
+ *               price: 10.99
+ *               short_description: Our delicious lunch offerings
+ *               description: A feast for 6 people! halloumi with pesto, roasted peppers, roasted tomatoes, sweet potato, pickled red onion and balsamic dressing served on a mixed leaf base.
 
  *     responses:
  *       "201":
@@ -73,7 +78,7 @@ export default menuSectionRouter;
  *               type: object
  *               properties:
  *                 data:
- *                   $ref: '#/components/schemas/MenuSection'
+ *                   $ref: '#/components/schemas/Product'
  *                 msg:
  *                   type: string
  *                 error:
@@ -86,9 +91,9 @@ export default menuSectionRouter;
  *         description: Forbidden
  *
  *   patch:
- *     summary: Update menu section
- *     description: Only restaurant admin users can update their own menu section information.
- *     tags: [MenuSection]
+ *     summary: Update product
+ *     description: Only restaurant admin users can update their own product information.
+ *     tags: [Product]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -102,7 +107,7 @@ export default menuSectionRouter;
  *                 type: string
  *             example:
  *               name: Updated Lunch Menu
- *               min_price: 10.99
+ *               price: 10.99
  *               description: Our updated delicious lunch offerings
  *     responses:
  *       "200":
@@ -133,14 +138,24 @@ export default menuSectionRouter;
  * @swagger
  * components:
  *   schemas:
- *     MenuSection:
+ *     Product:
  *       type: object
  *       properties:
  *         id:
  *           type: integer
- *         menu_id:
+ *         menu_section_id:
  *           type: integer
  *         name:
+ *           type: string
+ *         thumbnail:
+ *           type: string
+ *         calories:
+ *           type: number
+ *         price:
+ *           type: number
+ *         short_description:
+ *           type: string
+ *         description:
  *           type: string
  *         created_at:
  *           type: string

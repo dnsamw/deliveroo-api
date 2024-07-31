@@ -13,7 +13,7 @@ class MenuSection extends Model {
 
 MenuSection.init(
   {
-    id: {
+    section_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,

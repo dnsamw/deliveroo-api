@@ -1,30 +1,30 @@
 import {
-    findOneMenuSection,
-    updateMenuSectionById,
-    createMenuSection,
-    getMenuSectionById
-  } from "../services/menuSectionService";
+    findOneProduct,
+    updateProductById,
+    createProduct,
+    getProductById
+  } from "../services/productService";
   import { NextFunction, Response } from "express";
   import { customRequest } from "../types/customDefinition";
   import { ApiError } from "../util/ApiError";
   
-  export const updateMenuSection = async (
+  export const updateProduct = async (
     req: customRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const { id: menuSectionId } = req.menuSection;
+      const { id: productId } = req.product;
   
       let body = req.body;
   
-      const menuSection = await findOneMenuSection({ id: menuSectionId });
+      const product = await findOneProduct({ id: productId });
   
-      if (!menuSection) {
-        throw new ApiError(400, "Menu section not found");
+      if (!product) {
+        throw new ApiError(400, "Product not found");
       }
   
-      const updated = await updateMenuSectionById(body, parseInt(menuSectionId, 10));
+      const updated = await updateProductById(body, parseInt(productId, 10));
   
       return res.status(200).json({
         updated: updated[0],
@@ -36,14 +36,14 @@ import {
     }
   };
   
-  export const getMenuSectionData = async (
+  export const getProductData = async (
     req: customRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
       return res.status(200).json({
-        data: req.menuSection,
+        data: req.product,
         error: false,
       });
     } catch (err) {
@@ -51,13 +51,13 @@ import {
     }
   };
   
-  export const getOneMenuSectionById = async (
+  export const getOneProductById = async (
     req: customRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const menuRes = await getMenuSectionById(parseInt(req.params.id, 10));
+      const menuRes = await getProductById(parseInt(req.params.id, 10));
       return res.status(200).json({
         data: menuRes,
         error: false,
@@ -67,19 +67,19 @@ import {
     }
   };
   
-  export const createNewMenuSection = async (
+  export const createNewProduct = async (
     req: customRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const menuSectionData = req.body;
+      const productData = req.body;
   
-      const newMenu = await createMenuSection(menuSectionData);
+      const newProduct = await createProduct(productData);
   
       return res.status(201).json({
-        data: newMenu,
-        msg: "Menu Section created successfully",
+        data: newProduct,
+        msg: "Product Section created successfully",
         error: false,
       });
     } catch (err) {
@@ -88,7 +88,7 @@ import {
         next(new ApiError(400, err.message));
       } else {
         // For unexpected errors, pass a generic error message
-        next(new ApiError(500, "An error occurred while creating the menuSection"));
+        next(new ApiError(500, "An error occurred while creating the product"));
       }
     }
   };

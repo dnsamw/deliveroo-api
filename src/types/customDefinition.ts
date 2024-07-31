@@ -5,6 +5,7 @@ export interface customRequest extends Request {
   menu: any;
   restaurant: any;
   menuSection: any;
+  product: any;
 }
 
 export interface customError extends Error {

@@ -25,14 +25,14 @@ CREATE TABLE Menu (
     FOREIGN KEY (restaurant_id) REFERENCES Restaurants(id)
 );
 
-CREATE TABLE Menu_Sections (
+CREATE TABLE Menu_Section (
     section_id INT PRIMARY KEY AUTO_INCREMENT,
     menu_id INT,
     name VARCHAR(255) NOT NULL,
     FOREIGN KEY (menu_id) REFERENCES Menus(id)
 );
 
-CREATE TABLE Products (
+CREATE TABLE Product (
     id INT PRIMARY KEY AUTO_INCREMENT,
     menu_section_id INT,
     name VARCHAR(255) NOT NULL,
