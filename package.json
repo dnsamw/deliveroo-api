@@ -51,6 +51,7 @@
     "winston": "3.3.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/bcrypt": "^5.0.0",
     "@types/caseless": "^0.12.5",
     "@types/concurrently": "5.2.1",
@@ -72,6 +73,7 @@
     "eslint": "7.19.0",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1",
+    "sequelize-cli": "^6.6.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },
